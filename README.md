@@ -22,9 +22,40 @@ A collection of AI-powered development tools for [opencode](https://opencode.ai)
 
 ### Automated (Recommended)
 
-Run the install script from the repo root to selectively install skills and rules:
+Run the install script to selectively install skills and rules:
 
-TBD
+```bash
+# Interactive mode (prompts for selection)
+node install.js
+
+# Install everything
+node install.js --skills all --rules all
+
+# Install specific items by number
+node install.js --skills 1,3 --rules 2
+
+# Remove installed skills or rules
+node install.js --remove-skills 1
+node install.js --remove-rules all
+
+# Non-interactive (piped input)
+echo -e "all\nall" | node install.js
+
+# Show help
+node install.js --help
+```
+
+The script copies selected skills to `~/.config/opencode/skills/` and rules to `~/.config/opencode/rules/`, then updates `~/.config/opencode/opencode.jsonc` with the correct paths. Running it again is safe — it won't duplicate entries.
+
+#### CLI Flags
+
+| Flag | Description |
+|------|-------------|
+| `--skills <list>` | Comma-separated skill indices (e.g. `1,2`) or `all` |
+| `--rules <list>` | Comma-separated rule indices (e.g. `1,3`) or `all` |
+| `--remove-skills <list>` | Comma-separated skill indices or `all` to remove |
+| `--remove-rules <list>` | Comma-separated rule indices or `all` to remove |
+| `--help`, `-h` | Show help message |
 
 ### Manual
 
@@ -48,6 +79,7 @@ Add the skills and rules to your `~/.config/opencode/opencode.jsonc`:
 ```
 ~/.config/opencode/opencode.jsonc    ← skills.paths and instructions configured here
 ~/.config/opencode/skills/           ← skills copied here
+~/.config/opencode/rules/            ← rules copied here
 ```
 
 This repo structure:
